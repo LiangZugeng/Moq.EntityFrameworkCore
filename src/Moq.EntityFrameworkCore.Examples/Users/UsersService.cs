@@ -24,5 +24,18 @@
         {
             return await this.usersContext.Users.Where(x => x.AccountLocked).ToListAsync();
         }
+
+        public void RemoveLockedUsers()
+        {
+            var lockedUsers = this.usersContext.Users.Where(u => u.AccountLocked).ToList();
+            usersContext.Users.RemoveRange(lockedUsers);
+            usersContext.SaveChanges();
+        }
+
+        public void AddUsers(User user)
+        {
+            usersContext.Users.Add(user);
+            usersContext.SaveChanges();
+        }
     }
 }
